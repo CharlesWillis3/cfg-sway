@@ -1,0 +1,8 @@
+.gitconfig
+.config/alacritty/
+.config/chromium-flags.conf
+.config/fish/
+.config/sway/
+.config/waybar/
+.config/yadm/pathspec
+.themes/
