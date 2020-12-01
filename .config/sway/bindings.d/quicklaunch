@@ -1,0 +1,30 @@
+set $mode_quicklaunch  [b]rowser / [e]ditor / [f]iles / [t]op
+mode "$mode_quicklaunch" {
+  bindsym {
+    b exec chromium, mode "default"
+    e exec $term --embed 0 -e /sbin/nvim, mode "default"
+    f exec $term --embed 0 -e /sbin/nnn -eFUHdox, mode "default"
+    t exec $term --embed 0 -e /sbin/htop, mode "default"
+
+    Return mode "default"
+    Escape mode "default"
+  }
+}
+bindsym $mod+slash mode "$mode_quicklaunch"
+
+set $nn /sbin/nnn -eFUHdox
+
+set $mode_editconfigs   [s]way / [w]aybar / [f]ish / [a]lacritty
+mode "$mode_editconfigs" {
+  bindsym {
+    s exec $term -e $nn ~/.config/sway, mode "default"
+    w exec $term -e $nn ~/.config/waybar, mode "default"
+    f exec $term -e $nn ~/.config/fish, mode "default"
+    a exec $term -e $nn ~/.config/alacritty, mode "default"
+
+    Return mode "default"
+    Escape mode "default"
+  }
+}
+bindsym $mod+Shift+slash mode "$mode_editconfigs"
+

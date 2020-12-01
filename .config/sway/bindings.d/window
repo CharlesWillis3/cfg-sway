@@ -1,0 +1,25 @@
+set $mode_window  [+/-/=] opacity / [f]loat / [b]order
+mode "$mode_window" {
+  bindsym {
+    Plus opacity plus .1
+    Minus opacity minus .1
+    Equal opacity set 1
+    0 opacity set 0
+    1 opacity set .1
+    2 opacity set .2
+    3 opacity set .3
+    4 opacity set .4
+    5 opacity set .5
+    6 opacity set .6
+    7 opacity set .7
+    8 opacity set .8
+    9 opacity set .9
+
+    f floating toggle
+    b border toggle
+
+    Return mode "default"
+    Escape mode "default"
+  }
+}
+bindsym $mod+Shift+w mode "$mode_window"

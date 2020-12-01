@@ -1,0 +1,26 @@
+set $mode_system  [l]ock / [e]xit / [s]uspend / [n]ext
+set $mode_system2  [r]eboot / [s]hutdown / [u]efi
+
+ mode "$mode_system2" {
+    bindsym {
+      r exec --no-startup-id systemctl reboot, mode "default"
+      s exec --no-startup-id systemctl poweroff -i, mode "default"
+      u exec --no-startup-id systemctl reboot --firmware-setup, mode "default"
+      Return mode "default"
+      Escape mode "$mode_system"
+    }
+  }
+
+mode "$mode_system" {
+  bindsym {
+    l exec $lock, mode "default"
+    e exit 
+    s exec --no-startup-id systemctl suspend, mode "default"
+    n mode "$mode_system2"
+    Return mode "default"
+    Escape mode "default"
+  } 
+}
+bindsym $mod+Shift+e mode "$mode_system"
+
+
