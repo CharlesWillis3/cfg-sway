@@ -1,7 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR NVM_DIR:/home/cewillis3/\x2envm
-SETUVAR --export SWAYBG:/home/cewillis3/\x2elocal/share/wallpapers/northern\x2dlights/mckayla\x2dcrump\x2d3OR\x2dXFzKSBo\x2dunsplash\x2ejpg
+SETUVAR --export SWAYBG:/home/cewillis3/\x2elocal/share/wallpapers/northern\x2dlights/nicolas\x2dj\x2dleclercq\x2dva_nrBLonf8\x2dunsplash\x2ejpg
 SETUVAR --export SWAYBGSET:northern\x2dlights
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR __fish_git_prompt_char_cleanstate:

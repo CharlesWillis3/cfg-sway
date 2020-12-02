@@ -4,6 +4,7 @@
 	l = log
 	co = checkout
 	br = branch
+	pushd = push -u origin HEAD
 [user]
 	email = 5862883+CharlesWillis3@users.noreply.github.com
 	name = Charles Willis

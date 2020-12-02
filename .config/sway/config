@@ -25,7 +25,6 @@ set $menu wofi --term=/sbin/alacritty --allow-images --allow-markup  --gtk-dark 
 ### Output configuration
 output eDP-1 scale 1.5
 font pango: SourceCodePro Medium 11
-exec_always $nextbg
 
 ### Key bindings
 #
@@ -179,6 +178,7 @@ gaps inner 8
 focus_follows_mouse no
 
 exec_always ~/.config/waybar/waybar.sh
+exec_always $nextbg
 exec $term
 
 include ~/.config/sway/bindings.d/*
