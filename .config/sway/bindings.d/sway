@@ -1,11 +1,11 @@
 set $mode_sway  next [b]ackground / [r]eload config
 mode "$mode_sway" {
   bindsym {
-    b exec $nextbg
+    b exec_always $nextbg, output "*" bg "$RANDBG" fill
     r reload, mode "default"
 
     Return mode "default"
     Escape mode "default"
   }
 }
-bindsym $mod+Shift+gravE mode "$mode_sway"
+bindsym $mod+Shift+grave mode "$mode_sway"

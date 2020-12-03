@@ -1,1 +1,1 @@
-set $nextbg --no-startup-id exec ~/.config/sway/modules/set_random_wallpaper.fish -s northern-lights
+set $nextbg --no-startup-id exec fish -c "set-next-bg -s northern-lights"

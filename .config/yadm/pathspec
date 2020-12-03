@@ -3,6 +3,7 @@
 .config/chromium-flags.conf
 .config/fish/
 .config/sway/
+.config/nvim/
 .config/waybar/
 .config/yadm/pathspec
 .themes/

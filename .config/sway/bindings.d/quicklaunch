@@ -14,13 +14,14 @@ bindsym $mod+slash mode "$mode_quicklaunch"
 
 set $nn /sbin/nnn -eFUHdox
 
-set $mode_editconfigs   [s]way / [w]aybar / [f]ish / [a]lacritty
+set $mode_editconfigs   [s]way / [w]aybar / [f]ish / [a]lacritty / [v]im
 mode "$mode_editconfigs" {
   bindsym {
     s exec $term -e $nn ~/.config/sway, mode "default"
     w exec $term -e $nn ~/.config/waybar, mode "default"
     f exec $term -e $nn ~/.config/fish, mode "default"
     a exec $term -e $nn ~/.config/alacritty, mode "default"
+    v exec $term -e $nn ~/.config/nvim, mode "default"
 
     Return mode "default"
     Escape mode "default"
