@@ -1,9 +1,11 @@
-.gitconfig
 .config/alacritty/
 .config/chromium-flags.conf
 .config/fish/
-.config/sway/
 .config/nvim/
+.config/sway/
 .config/waybar/
+.config/yadm/files.gpg
 .config/yadm/pathspec
+.config/systemd/user/rclone@.service
+.gitconfig
 .themes/

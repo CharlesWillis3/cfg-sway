@@ -23,3 +23,7 @@ mode "$mode_window" {
   }
 }
 bindsym $mod+Shift+w mode "$mode_window"
+
+bindsym Mod1+Tab focus right
+bindsym Mod1+Shift+Tab focus down
+

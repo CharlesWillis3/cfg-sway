@@ -1,43 +1,44 @@
-scriptencoding utf8
-
+set encoding=utf-8
+set clipboard=unnamedplus
+set mouse=a
+set expandtab shiftwidth=2
+set termguicolors
 set number
 set relativenumber
-set wildmenu
-set confirm
-set nocompatible
 set hidden
-set encoding=utf-8
-set softtabstop=2
-set shiftwidth=2
-set clipboard=unnamedplus
-set t_Co=256
 
-" ---- vim plug ----
+let mapleader="\\"
+let g:nnn#set_default_mappings = 0
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+let g:nnn#command = 'nnn -d'
+let g:nnn#replace_netrw = 1
 
-call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
-Plug 'tpope/vim-surround'
-Plug 'easymotion/vim-easymotion'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/tagbar'
-Plug 'vim-syntastic/syntastic'
-Plug 'rust-lang/rust.vim'
-"Plug 'vim-ctrlspace/vim-ctrlspace'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'enricobacis/vim-airline-clock'
-Plug 'mhinz/vim-startify'
+
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" \l       : list buffers
+" \b \f \g : go back/forward/last-used
+nnoremap <Leader><Leader>l :ls<CR>
+nnoremap <Leader><Leader>b :bp<CR>
+nnoremap <Leader><Leader>f :bn<CR>
+nnoremap <Leader><Leader>g :e#<CR>
+nnoremap <Leader><Leader>bg :buffers<CR>:buffer<Space>
+
+" move current line up/down
+nnoremap <M-Up> ddkP
+nnoremap <M-Down> ddjP
+
+call plug#begin('/home/cewillis3/.local/share/nvim/init/plugged')
+Plug 'psliwka/vim-smoothie'
+Plug 'mcchrish/nnn.vim'
 call plug#end()
 
-syntax enable
-filetype plugin indent on
+nnoremap <silent><leader>n :NnnPicker %:p:h<CR>
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+colorscheme desert
+"colorscheme evening
+"colorscheme slate
+"colorscheme torte
 
-"let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-
-let g:deoplete#enable_at_startup = 1
-let g:tablineclosebutton=1
-
-nmap <F4> :TagbarToggle<CR>
+" transparent bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE

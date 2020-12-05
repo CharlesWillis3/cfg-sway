@@ -4,18 +4,19 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-include ~/.config/sway/config.d/*
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+
+# Your preferred terminal emulator
+set $term alacritty
+
+include ~/.config/sway/config.d/*
 
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-
-# Your preferred terminal emulator
-set $term alacritty
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -40,7 +41,7 @@ output "*" bg "$RANDBG" fill
 
     # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym $mod+space exec $menu
+    #bindsym $mod+space exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -106,13 +107,18 @@ output "*" bg "$RANDBG" fill
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+    
+    # Cycle workspace
+    bindsym $mod+space workspace back_and_forth 
+    bindsym $mod+Shift+space workspace next
+
 #
 # Layout stuff:
 #
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
+    bindsym $mod+c splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
@@ -179,6 +185,7 @@ gaps inner 8
 focus_follows_mouse no
 
 exec_always ~/.config/waybar/waybar.sh
+exec autotiling
 exec $term
 
 include ~/.config/sway/bindings.d/*

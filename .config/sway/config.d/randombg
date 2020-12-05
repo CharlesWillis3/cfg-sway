@@ -1,1 +1,1 @@
-set $nextbg --no-startup-id exec fish -c "set-next-bg -s northern-lights"
+set $nextbg exec fish -c "set-next-bg -s northern-lights"
