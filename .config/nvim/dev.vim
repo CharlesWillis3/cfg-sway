@@ -9,20 +9,26 @@ set noshowmode
 
 " ---- vim plug ----
 
-call plug#begin('/home/cewillis3/.local/share/nvim/dev/plugged')
+call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
+Plug 'jiangmiao/auto-pairs'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'editorconfig/editorconfig-vim'
 Plug 'morhetz/gruvbox'
-Plug 'machakann/vim-sandwich'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/tagbar'
-Plug 'vim-syntastic/syntastic'
-Plug 'rust-lang/rust.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'enricobacis/vim-airline-clock'
-Plug 'mhinz/vim-startify'
-Plug 'psliwka/vim-smoothie'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'preservim/nerdcommenter'
 Plug 'mcchrish/nnn.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'preservim/tagbar'
+Plug 'vim-airline/vim-airline'
+Plug 'enricobacis/vim-airline-clock'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'machakann/vim-sandwich'
+Plug 'psliwka/vim-smoothie'
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 syntax enable
@@ -63,8 +69,22 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
+" coc mappings
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <C-space> coc#refresh()
+" goto code navigation
+nmap <leader>g <C-o>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+" show all diagnostics
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+" manage extensions
+nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
+
 colorscheme gruvbox
-" transparent bg
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " force redraw when vim had loaded for terminal in window manager compat
 autocmd vimenter * :silent exec "!kill -s SIGWINCH $PPID"

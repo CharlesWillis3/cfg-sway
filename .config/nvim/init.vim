@@ -1,7 +1,10 @@
+"-----------------------
+"      Init Config
+"-----------------------
 set encoding=utf-8
 set clipboard=unnamedplus
 set mouse=a
-set expandtab shiftwidth=2
+"set expandtab shiftwidth=2
 set termguicolors
 set number
 set relativenumber
@@ -12,7 +15,6 @@ let g:nnn#set_default_mappings = 0
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 let g:nnn#command = 'nnn -d'
 let g:nnn#replace_netrw = 1
-
 
 " Mappings to access buffers (don't use "\p" because a
 " delay before pressing "p" would accidentally paste).
@@ -28,17 +30,21 @@ nnoremap <Leader><Leader>bg :buffers<CR>:buffer<Space>
 nnoremap <M-Up> ddkP
 nnoremap <M-Down> ddjP
 
-call plug#begin('/home/cewillis3/.local/share/nvim/init/plugged')
+call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
+Plug 'tpope/vim-sleuth'
+Plug 'joshdick/onedark.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'mcchrish/nnn.vim'
 call plug#end()
 
 nnoremap <silent><leader>n :NnnPicker %:p:h<CR>
 
-colorscheme desert
+colorscheme onedark
+"colorscheme desert
 "colorscheme evening
 "colorscheme slate
 "colorscheme torte
 
 " transparent bg
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+autocmd vimenter * hi! Normal ctermbg=NONE guibg=NONE
+autocmd vimenter * hi! NonText ctermbg=NONE guibg=NONE
