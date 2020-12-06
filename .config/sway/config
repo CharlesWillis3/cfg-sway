@@ -18,10 +18,24 @@ set $down j
 set $up k
 set $right l
 
+# onedark.vim theme colors
+set $od_black #282c34
+set $od_red #e06c75
+set $od_green #98c379
+set $od_yellow #e5c07b
+set $od_blue #61afef
+set $od_magenta #c678dd
+set $od_cyan #56b6c2
+set $od_grey #abb2bf
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --term=/sbin/alacritty --allow-images --allow-markup  --gtk-dark --prompt "What now?" --insensitive --show run | xargs swaymsg exec --
+#set $menu wofi --term=/sbin/alacritty --allow-images --allow-markup  --gtk-dark --prompt "What now?" --insensitive --show run | xargs swaymsg exec --
+
+set $menu_colors --tb "$od_black" --tf "$od_green" --fb "$od_black" --ff "$od_cyan" --nb "$od_black" --nf "$od_cyan" --hb "$od_cyan" --hf "$od_black"
+
+set $menu j4-dmenu-desktop --dmenu='bemenu -l 10 -p "exec" -i --no-overlap --fn "pango:SourceCodePro Medium 11" $menu_colors' --term='$term' | xargs swaymsg exec -- 
 
 ### Output configuration
 output eDP-1 scale 1.5
@@ -40,8 +54,7 @@ output "*" bg "$RANDBG" fill
     bindsym $mod+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
-    #bindsym $mod+space exec $menu
+    bindsym $mod+slash exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -52,9 +65,6 @@ output "*" bg "$RANDBG" fill
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-    #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 #
 # Moving around:
@@ -115,11 +125,7 @@ output "*" bg "$RANDBG" fill
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+c splith
-    bindsym $mod+v splitv
+    bindsym $mod+v split toggle
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -174,13 +180,15 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
-default_border pixel
+default_border pixel 2
+client.focused   $od_cyan88 $od_cyan88 $od_grey $od_cyan
+client.focused_inactive $od_grey88 $od_grey88 $od_black
+client.unfocused $od_grey66 $od_grey66 $od_black
 
-gaps inner 8
+gaps inner 6
 
 focus_follows_mouse no
 

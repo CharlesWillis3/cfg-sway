@@ -1,19 +1,5 @@
 set $dvim $term -o window.padding.x=0 -o window.padding.y=0 -e fish -c dvim
 
-set $mode_quicklaunch  dev [n]vim / [e]ditor / [f]iles / [t]op
-mode "$mode_quicklaunch" {
-  bindsym {
-    b exec chromium, mode "default"
-    n exec $dvim, mode "default"
-    e exec $term -e /sbin/nvim, mode "default"
-    f exec $term -e /sbin/nnn -eFUHdox, mode "default"
-    t exec $term -e /sbin/htop, mode "default"
-
-    Return mode "default"
-    Escape mode "default"
-  }
-}
-bindsym $mod+slash mode "$mode_quicklaunch"
 bindsym $mod+b exec chromium
 bindsym $mod+n exec $dvim
 
