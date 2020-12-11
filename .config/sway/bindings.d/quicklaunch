@@ -1,22 +1,3 @@
-set $dvim $term -o window.padding.x=0 -o window.padding.y=0 -e fish -c dvim
-
 bindsym $mod+b exec chromium
-bindsym $mod+n exec $dvim
-
-set $nn /sbin/nnn -eFUHdox
-
-set $mode_editconfigs   [s]way / [w]aybar / [f]ish / [a]lacritty / [v]im
-mode "$mode_editconfigs" {
-  bindsym {
-    s exec $term -t "  sway" -e $nn ~/.config/sway, mode "default"
-    w exec $term -t "  waybar" -e $nn ~/.config/waybar, mode "default"
-    f exec $term -t "  fish" -e $nn ~/.config/fish, mode "default"
-    a exec $term -t "  alacritty" -e $nn ~/.config/alacritty, mode "default"
-    v exec $term -t "  vim" -e $nn ~/.config/nvim, mode "default"
-
-    Return mode "default"
-    Escape mode "default"
-  }
-}
-bindsym $mod+Shift+slash mode "$mode_editconfigs"
-
+bindsym $mod+n exec $term -e fish -c nvim
+bindsym $mod+d exec $term -e fish -c dvim

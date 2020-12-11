@@ -5,6 +5,7 @@ set -xg EDITOR /sbin/nvim
 set -xg MANPAGER "nvim +Man!"
 set -xg LC_COLLATE C
 set -xg BEMENU_BACKEND wayland
+set -xg MOZ_ENABLE_WAYLAND 1 
 
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1

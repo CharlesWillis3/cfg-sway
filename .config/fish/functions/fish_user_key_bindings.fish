@@ -1,3 +1,3 @@
 function fish_user_key_bindings
-  . ~/.config/fish/functions/key_bindings.fish
+  fish_vi_key_bindings insert
 end

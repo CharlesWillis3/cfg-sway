@@ -19,12 +19,13 @@ Plug 'preservim/nerdcommenter'
 Plug 'mcchrish/nnn.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'preservim/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'psliwka/vim-smoothie'
@@ -36,7 +37,25 @@ filetype plugin indent on
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#cursormode#enabled = 1
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#show_close_button = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline#extensions#tabline#buffer_idx_format = {
+        \ '0': '✪ ',
+        \ '1': '➊ ',
+        \ '2': '➋ ',
+        \ '3': '➌ ',
+        \ '4': '➍ ',
+        \ '5': '➎ ',
+        \ '6': '➏ ',
+        \ '7': '➐ ',
+        \ '8': '➑ ',
+        \ '9': '➒ '
+        \}
 let g:deoplete#enable_at_startup = 1
 let g:tablineclosebutton= 1
 let g:Lf_WindowPosition = 'popup'
@@ -58,16 +77,17 @@ nmap <silent><F4> :TagbarToggle<CR>
 " Mappings to access buffers (don't use "\p" because a
 " delay before pressing "p" would accidentally paste).
 " \1 \2 \3 : go to buffer 1/2/3 etc
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
+nmap <Leader>1 <Plug>AirlineSelectTab1
+nmap <Leader>2 <Plug>AirlineSelectTab2
+nmap <Leader>3 <Plug>AirlineSelectTab3
+nmap <Leader>4 <Plug>AirlineSelectTab4
+nmap <Leader>5 <Plug>AirlineSelectTab5
+nmap <Leader>6 <Plug>AirlineSelectTab6
+nmap <Leader>7 <Plug>AirlineSelectTab7
+nmap <Leader>8 <Plug>AirlineSelectTab8
+nmap <Leader>9 <Plug>AirlineSelectTab9
+nmap <Leader>- <Plug>AirlineSelectPrevTab
+nmap <Leader>+ <Plug>AirlineSelectNextTab
 
 " coc mappings
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"

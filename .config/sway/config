@@ -9,6 +9,7 @@ set $mod Mod4
 
 # Your preferred terminal emulator
 set $term alacritty
+set $fish_exec exec /usr/bin/fish
 
 include ~/.config/sway/config.d/*
 
@@ -28,14 +29,32 @@ set $od_magenta #c678dd
 set $od_cyan #56b6c2
 set $od_grey #abb2bf
 
+set $desktop_menu_colors  --tb "$od_black"  --tf "$od_green" \
+                          --fb "$od_black"  --ff "$od_cyan" \
+                          --nb "$od_black"  --nf "$od_blue" \
+                          --hb "$od_cyan"   --hf "$od_black"
+
+set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
+                          --fb "$od_blue"   --ff "$od_black" \
+                          --nb "$od_blue"   --nf "$od_black" \
+                          --hb "$od_green"  --hf "$od_black"
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-#set $menu wofi --term=/sbin/alacritty --allow-images --allow-markup  --gtk-dark --prompt "What now?" --insensitive --show run | xargs swaymsg exec --
+set $bmenu_opts -i --fn "pango:SourceCodePro Medium 10"
 
-set $menu_colors --tb "$od_black" --tf "$od_green" --fb "$od_black" --ff "$od_cyan" --nb "$od_black" --nf "$od_cyan" --hb "$od_cyan" --hf "$od_black"
+set $menu j4-dmenu-desktop --dmenu='bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors' --term='$term' --wrapper='swaymsg exec'
 
-set $menu j4-dmenu-desktop --dmenu='bemenu -l 10 -p "exec" -i --no-overlap --fn "pango:SourceCodePro Medium 11" $menu_colors' --term='$term' | xargs swaymsg exec -- 
+set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
+
+set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn %config%'"
+
+set $sys_menu ~/.config/sway/mods/system-menu.fish -p "sys" $bmenu_opts
+
+bindsym $mod+shift+slash exec $sys_menu
+
+#xargs swaymsg exec -- 
 
 ### Output configuration
 output eDP-1 scale 1.5
@@ -55,6 +74,7 @@ output "*" bg "$RANDBG" fill
 
     # Start your launcher
     bindsym $mod+slash exec $menu
+    bindsym $mod+Ctrl+slash exec $config_menu | $config_edit
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -94,7 +114,7 @@ output "*" bg "$RANDBG" fill
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+1 workspace number 1
+    bindsym $mod+1 workspace number 1:
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
     bindsym $mod+4 workspace number 4
@@ -193,6 +213,7 @@ gaps inner 6
 focus_follows_mouse no
 
 exec_always ~/.config/waybar/waybar.sh
+exec gammastep
 exec autotiling
 exec $term
 

@@ -4,7 +4,7 @@
 set encoding=utf-8
 set clipboard=unnamedplus
 set mouse=a
-"set expandtab shiftwidth=2
+set expandtab shiftwidth=2 tabstop=2 softtabstop=2
 set termguicolors
 set number
 set relativenumber
@@ -31,7 +31,6 @@ nnoremap <M-Up> ddkP
 nnoremap <M-Down> ddjP
 
 call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
-Plug 'tpope/vim-sleuth'
 Plug 'joshdick/onedark.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'mcchrish/nnn.vim'
