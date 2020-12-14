@@ -11,6 +11,7 @@
 .config/sway/mods/
 .config/systemd/user/
 .config/waybar/
+.config/waybar/modules/
 .config/yadm/bootstrap
 .config/yadm/encrypt
 .config/yadm/files.gpg
