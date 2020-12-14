@@ -9,9 +9,8 @@ set noshowmode
 
 " ---- vim plug ----
 
-call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
+call plug#begin('/home/cewillis3/.local/share/nvim/plugged/dev')
 Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
@@ -19,21 +18,24 @@ Plug 'preservim/nerdcommenter'
 Plug 'mcchrish/nnn.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'rust-lang/rust.vim'
-"Plug 'vim-syntastic/syntastic'
 Plug 'preservim/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'psliwka/vim-smoothie'
 Plug 'mhinz/vim-startify'
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
-syntax enable
-filetype plugin indent on
+" ---- coc.nvim ----
+set hidden
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -93,6 +95,7 @@ nmap <Leader>+ <Plug>AirlineSelectNextTab
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <C-space> coc#refresh()
+
 " goto code navigation
 nmap <leader>g <C-o>
 nmap <silent> gd <Plug>(coc-definition)

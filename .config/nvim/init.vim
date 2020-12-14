@@ -30,7 +30,7 @@ nnoremap <Leader><Leader>bg :buffers<CR>:buffer<Space>
 nnoremap <M-Up> ddkP
 nnoremap <M-Down> ddjP
 
-call plug#begin('/home/cewillis3/.local/share/nvim/plugged')
+call plug#begin('/home/cewillis3/.local/share/nvim/plugged/init')
 Plug 'joshdick/onedark.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'mcchrish/nnn.vim'

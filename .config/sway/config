@@ -44,7 +44,8 @@ set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
 # on the original workspace that the command was run on.
 set $bmenu_opts -i --fn "pango:SourceCodePro Medium 10"
 
-set $menu j4-dmenu-desktop --dmenu='bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors' --term='$term' --wrapper='swaymsg exec'
+set $menu_dmenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
+set $menu j4-dmenu-desktop --dmenu='$menu_dmenu' --term='$term' --wrapper='swaymsg exec' --no-generic
 
 set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
 
@@ -212,8 +213,10 @@ gaps inner 6
 
 focus_follows_mouse no
 
+
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always ~/.config/waybar/waybar.sh
-exec gammastep
+exec thunar --daemon
 exec autotiling
 exec $term
 

@@ -4,7 +4,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/spotify", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/spotify", "custom/gammastep", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -23,7 +23,7 @@
     "battery": {
         "format": "{icon}",
         "format-alt": "{time} {capacity}% {icon}",
-	"format-alt-click": "click-right",
+        "format-alt-click": "click-right",
         "format-icons": ["", "", "", "", ""],
         "format-charging": "",
         "interval": 30,
@@ -51,8 +51,8 @@
         "format-alt-click": "click-right",
         "format-muted": "",
         "format-icons": {
-            "phone": [" ", " ", " ", " "],
-            "default": ["", "", "", ""]
+            "phone": [" ", " ", " "],
+            "default": ["", "", ""]
         },
         "scroll-step": 10,
         "on-click": "pavucontrol",
@@ -62,7 +62,14 @@
         "interval": 1,
         "return-type": "json",
         "exec": "~/.config/waybar/modules/spotify.sh",
-        "exec-if": "pgrep spotify",
+        "exec-if": "pgrep spotifyd",
+        "escape": true
+    },
+    "custom/gammastep":{
+        "interval": 1,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/gammastep.sh",
+        "exec-if": "pgrep gammastep",
         "escape": true
     },
     "idle_inhibitor": {

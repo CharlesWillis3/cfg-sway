@@ -1,0 +1,67 @@
+#!/bin/fish
+
+if read_confirm "run yadm decrypt"
+  yadm decrypt
+end
+
+if read_confirm "sync repo packages"
+  yay --repos --needed -S - < $HOME/.config/.bootstrap/pkg-native
+end
+
+if read_confirm "sync AUR packages"
+  yay -a --needed -S - < $HOME/.config/.bootstrap/pkg-foreign
+end
+
+# fish plugins
+if read_confirm "install fish plugins"
+  fisher update
+end
+
+set -xg SSHKEYFILE $HOME/.ssh/id_inithost
+if read_confirm "setup ssh keys"
+  ssh-agent
+  ssh-add $SSHKEYFILE
+end
+
+# vim-plug
+if read_confirm "install vim-plug"
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+end
+
+if read_confirm "Install vim plugins"
+  fish -c "dvim +PlugInstall"
+  fish -c "nvim +PlugInstall"
+end
+
+# nnn
+if read_confirm "link nnn plugins"
+  rm -f $HOME/.config/nnn/plugins
+  ln -s /usr/share/nnn/plugins $HOME/.config/nnn/plugins
+end
+
+# build ly dm
+if read_confirm "install ly dm"
+  $HOME/.config/.bootstrap/install-ly.fish
+end
+
+# build spotifyd
+if read_confirm "install spotifyd"
+  $HOME/.config/.bootstrap/install-spotifyd.fish
+end
+
+# sysyadm
+if read_confirm "sysyadm clone"
+  sysyadm clone -w / git@github.com:CharlesWillis3/cfg-sway-sys
+end
+
+# full update
+if read_confirm "full yay update"
+  yay -Syyu
+end
+
+# post-install
+if read_confirm "post-install"
+  $HOME/.config/.boostrap/post-install.fish
+end
+
