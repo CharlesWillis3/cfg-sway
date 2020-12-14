@@ -149,6 +149,7 @@ systemd-sysvcompat
 tar
 texinfo
 tlp
+transmission-gtk
 unzip
 usbutils
 util-linux
