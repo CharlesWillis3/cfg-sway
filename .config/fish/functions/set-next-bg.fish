@@ -1,7 +1,7 @@
-set -U __randbg_config $HOME/.config/randbg
-set -xU RANDBG $__randbg_config/curr
 
 function set-next-bg
+  set -U __randbg_config $HOME/.config/randbg
+  set -xU RANDBG $__randbg_config/curr
   set -l options (fish_opt --short h --long help)
   set options $options (fish_opt --short=s --long=set --required-val)
   set options $options (fish_opt --short=b --long=basedir --optional-val --long-only)

@@ -1,4 +1,4 @@
 function fish_greeting
-  /opt/shell-color-scripts/colorscript.sh --random
+  /opt/shell-color-scripts/colorscripts/bars
 end
 

@@ -51,7 +51,7 @@ window:
 # Font configuration
 font:
   normal:
-    family: FiraCode Nerd Font Mono
+    family: MesloLGS NF
     style: Regular
 
   bold:

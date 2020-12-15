@@ -1,15 +1,21 @@
 #!/bin/fish
 
+mkdir $HOME/drive
+
 if read_confirm "run yadm decrypt"
   yadm decrypt
 end
 
 if read_confirm "sync repo packages"
-  yay --repos --needed -S - < $HOME/.config/.bootstrap/pkg-native
+  yay --repo --needed -S - < $HOME/.config/.bootstrap/pkg-native
+end
+
+if read_confirm "rustup stable toolchain"
+  rustup install toolchain stable
 end
 
 if read_confirm "sync AUR packages"
-  yay -a --needed -S - < $HOME/.config/.bootstrap/pkg-foreign
+  yay --aur --needed -S - < $HOME/.config/.bootstrap/pkg-foreign
 end
 
 # fish plugins
@@ -52,7 +58,7 @@ end
 
 # sysyadm
 if read_confirm "sysyadm clone"
-  sysyadm clone -w / git@github.com:CharlesWillis3/cfg-sway-sys
+  sysyadm clone -w /  -b main git@github.com:CharlesWillis3/cfg-sway-sys
 end
 
 # full update

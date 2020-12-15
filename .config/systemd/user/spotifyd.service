@@ -7,7 +7,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/home/cewillis3/.cargo/bin/spotifyd --no-daemon --backend pulseaudio --cache-path /home/cewillis3/.cache/spotifyd
+ExecStart=/usr/bin/spotifyd --no-daemon
 Restart=always
 RestartSec=12
 
