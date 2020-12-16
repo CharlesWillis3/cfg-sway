@@ -41,6 +41,7 @@ fakeroot
 file
 filesystem
 findutils
+firewalld
 fish
 flex
 gammastep
@@ -153,6 +154,7 @@ systemd
 systemd-fsck-silent
 systemd-sysvcompat
 tar
+telegram-desktop
 texinfo
 thunar-archive-plugin-gtk3
 thunar-gtk3

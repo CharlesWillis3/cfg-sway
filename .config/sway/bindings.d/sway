@@ -8,4 +8,4 @@ mode "$mode_sway" {
     Escape mode "default"
   }
 }
-bindsym $mod+Shift+grave mode "$mode_sway"
+bindsym $mod+Ctrl+grave mode "$mode_sway"
