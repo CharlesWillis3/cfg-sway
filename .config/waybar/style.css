@@ -1,8 +1,8 @@
 * {
     border:        none;
     border-radius: 0;
-    font-family:   'Font Awesome 5 Free';
-    font-size:     14px;
+    font-family:   'FuraMono Nerd Font';
+    font-size:     12px;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
@@ -24,10 +24,10 @@ window {
 }
 
 window > box {
-    margin: 6px 6px 0 6px;
-    background: rgba(43, 48, 59, 0.6);
+    margin: 0px 0px 0 0px;
+    background: rgba(40, 40, 40, 0.5);
     border-bottom: 0px solid rgba(100, 114, 125, 0.5);
-    border-radius: 5;
+    border-radius: 0;
     color: white;
 }
 
@@ -38,6 +38,7 @@ window > box {
 #workspaces button {
     padding:    0 5px;
     color:      rgba(217, 216, 216, 0.4);
+    border-radius: 5;
 }
 
 #workspaces button.visible {
@@ -47,6 +48,7 @@ window > box {
 #workspaces button.focused {
     border-top: 3px solid rgba(217, 216, 216, 0);
     border-bottom: 3px solid rgba(217, 216, 216, 1);
+    border-radius: 0;
 }
 
 #workspaces button.urgent {
