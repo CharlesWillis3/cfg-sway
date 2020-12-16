@@ -226,7 +226,7 @@ exec_always ~/.config/waybar/waybar.sh
 exec thunar --daemon
 exec autotiling
 workspace $workspace_term
-exec $term
+exec $term -e fish -C 'ssh-add ~/.ssh/id_inithost'
 
 include ~/.config/sway/bindings.d/*
 include /etc/sway/config.d/*
