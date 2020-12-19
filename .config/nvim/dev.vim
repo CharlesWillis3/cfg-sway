@@ -29,6 +29,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'mhinz/vim-startify'
 "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " ---- coc.nvim ----

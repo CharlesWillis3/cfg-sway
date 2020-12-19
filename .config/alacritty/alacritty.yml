@@ -51,20 +51,20 @@ window:
 # Font configuration
 font:
   normal:
-    family: MesloLGS NF
-    style: Regular
+    family: FiraCode Nerd Font Mono
+    #style: Regular
 
-  bold:
+    #bold:
     #family: monospace
-    style: Bold
+    #style: Bold
 
-  italic:
+    #italic:
     #family: monospace
-    style: Light
+    #style: Light
 
-  bold_italic:
+    #bold_italic:
     #family: monospace
-    style: Medium
+    #style: Medium
 
   # Point size
   size: 12.0

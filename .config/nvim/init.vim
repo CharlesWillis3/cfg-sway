@@ -34,6 +34,7 @@ call plug#begin('/home/cewillis3/.local/share/nvim/plugged/init')
 Plug 'joshdick/onedark.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'mcchrish/nnn.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 nnoremap <silent><leader>n :NnnPicker %:p:h<CR>

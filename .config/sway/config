@@ -10,6 +10,7 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term alacritty
 set $fish_exec exec /usr/bin/fish
+set $workspace_new swaymsg -t get_workspaces -r | jq '[.[].num] | map(select(. < 99)) | [max + 1, 1] | max' | xargs swaymsg workspace number && swaymsg exec -- 
 
 include ~/.config/sway/config.d/*
 
@@ -45,15 +46,17 @@ set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
 set $bmenu_opts -i --fn "pango:SourceCodePro Medium 10"
 
 set $menu_dmenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
-set $menu j4-dmenu-desktop --dmenu='$menu_dmenu' --term='$term' --wrapper='swaymsg exec' --no-generic
+set $menu j4-dmenu-desktop --dmenu='$menu_dmenu' --term='$term' --wrapper='swaymsg exec'
+
+set $menu_newws_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $desktop_menu_colors
+set $menu_newws j4-dmenu-desktop --dmenu='$menu_newws_bemenu' --term='$term' --no-exec
 
 set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
-
-set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn %config%'"
+set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn -aPp %config%'"
 
 set $sys_menu ~/.config/sway/mods/system-menu.fish -p "sys" $bmenu_opts
 
-bindsym $mod+shift+slash exec $sys_menu
+bindsym $mod+Escape exec $sys_menu
 
 #xargs swaymsg exec -- 
 
@@ -68,6 +71,7 @@ output "*" bg "$RANDBG" fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Ctrl+Return exec $workspace_new $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -75,7 +79,8 @@ output "*" bg "$RANDBG" fill
 
     # Start your launcher
     bindsym $mod+slash exec $menu
-    bindsym $mod+Ctrl+slash exec $config_menu | $config_edit
+    bindsym $mod+ctrl+slash exec $menu_newws | ~/.config/sway/mods/exec-newws.fish
+    bindsym $mod+shift+slash exec $config_menu | $config_edit
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -212,15 +217,18 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 default_border pixel 2
-client.focused   $od_cyan88 $od_cyan88 $od_grey $od_cyan
-client.focused_inactive $od_grey88 $od_grey88 $od_black
-client.unfocused $od_grey66 $od_grey66 $od_black
+
+#class                  │ border    │ background  │ text      │ indicator │ child_border
+client.focused          $od_cyan88  $od_cyan88    $od_grey    $od_cyan
+client.focused_inactive $od_grey00  $od_grey00    $od_black   $od_grey00
+client.unfocused        $od_grey00  $od_grey00    $od_black   $od_grey00
 
 gaps inner 6
-
 focus_follows_mouse no
 
+no_focus [app_id="nnn-preview"]
 
+exec systemctl --user start gammastep
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always ~/.config/waybar/waybar.sh
 exec thunar --daemon

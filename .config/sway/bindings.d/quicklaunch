@@ -1,5 +1,4 @@
 set $browser chromium
-set $workspace_new swaymsg -t get_workspaces -r | expr $(jq '[.[].num] | max') + 1 | xargs swaymsg workspace number && swaymsg exec -- 
 
 bindsym $mod+Shift+b workspace number $workspace_browser, exec $browser
 bindsym $mod+n exec $term -e fish -c nvim

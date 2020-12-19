@@ -44,6 +44,7 @@ findutils
 firewalld
 fish
 flex
+font-manager
 gammastep
 gawk
 gcc
@@ -154,11 +155,7 @@ systemd
 systemd-fsck-silent
 systemd-sysvcompat
 tar
-telegram-desktop
 texinfo
-thunar-archive-plugin-gtk3
-thunar-gtk3
-thunar-volman-gtk3
 tlp
 transmission-gtk
 unzip

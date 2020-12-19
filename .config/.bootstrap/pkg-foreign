@@ -1,11 +1,12 @@
 archivemount
 autotiling-git
 bat-cat-git
+expressvpn
 fisher
 fontpreview-git
 j4-dmenu-desktop
 light-git
-nerd-fonts-fira-code
+nerd-fonts-complete
 nerd-fonts-fira-mono
 nnn-nerd
 paman
@@ -14,7 +15,7 @@ powerbar
 shell-color-scripts
 snap-pac-grub
 snapper-gui-git
-spotify-tui
+spotify-tui-bin
 tor-browser
 ttf-ms-fonts
 universal-ctags-git
