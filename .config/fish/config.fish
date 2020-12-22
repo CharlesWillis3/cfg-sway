@@ -8,9 +8,8 @@ set -xg BEMENU_BACKEND wayland
 set -xg MOZ_ENABLE_WAYLAND 1 
 set -xg TERMINAL alacritty
 set -xg NNN_PLUG_BUILTIN 'f:finder;o:fzopen;d:diffs;t:nmount;v:imgview;l:launch;p:preview-sway'
-set -xg NNN_PLUG_OPENERS 'b:-_|chromium $nnn;n:-_|chromium --new-window $nnn'
-set -xg NNN_PLUG_SHELL 'x:_chmod +x $nnn*'
-set -xg NNN_PLUG "$NNN_PLUG_BUILTIN;$NNN_PLUG_OPENERS;$NNN_PLUG_SHELL"
+set -xg NNN_PLUG_OPENERS 'b:-_|chromium $nnn;n:-_|cnw $nnn'
+set -xg NNN_PLUG "$NNN_PLUG_BUILTIN;$NNN_PLUG_OPENERS"
 
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1

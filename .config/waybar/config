@@ -4,7 +4,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/spotify", "custom/gammastep", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/spotify", "custom/expressvpn", "custom/gammastep", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -25,7 +25,7 @@
         "format-alt": "{time} {capacity}% {icon}",
         "format-alt-click": "click-right",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": "",
+        "format-charging": "",
         "interval": 30,
         "states": {
             "warning": 25,
@@ -68,14 +68,39 @@
     "custom/gammastep":{
         "interval": 1,
         "return-type": "json",
+        "format" : "{icon}",
+        "format-alt" : "{} {icon}",
+        "format-alt-click": "click-right",
+        "format-icons": {
+          "daytime": "",
+          "night": "望",
+          "transition": ""
+        },
         "exec": "~/.config/waybar/modules/gammastep.sh",
         "exec-if": "pgrep gammastep",
         "escape": true
     },
+    "custom/expressvpn":{
+        "interval": 1,
+        "return-type": "json",
+        "format" : "{icon}",
+        "format-alt" : "{} {icon}",
+        "format-alt-click": "click-right",
+        "format-icons": {
+          "connected": "旅",
+          "connecting": "ﯴ",
+          "not-connected": "",
+        },
+        "exec": "~/.config/waybar/modules/expressvpn.sh",
+        "exec-if": "pgrep expressvpn",
+        "escape": true,
+        "tooltip": true,
+        "on-click": "expressvpn connect || expressvpn disconnect"
+    },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
+            "activated": "",
             "deactivated": ""
         },
         "tooltip": false

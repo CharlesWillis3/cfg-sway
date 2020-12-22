@@ -14,6 +14,3 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWA
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-
-input "type:keyboard" xkb_options caps:escape
-

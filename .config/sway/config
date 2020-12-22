@@ -40,30 +40,46 @@ set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
                           --nb "$od_blue"   --nf "$od_black" \
                           --hb "$od_green"  --hf "$od_black"
 
+set $newws_menu_colors    --tb "$od_yellow" --tf "$od_black" \
+                          --fb "$od_black"  --ff "$od_yellow" \
+                          --nb "$od_black"  --nf "$od_yellow" \
+                          --hb "$od_yellow" --hf "$od_black"
+
+set $man_menu_color       --tb "$od_black"  --tf "$od_grey" \
+                          --fb "$od_grey"   --ff "$od_black" \
+                          --nb "$od_grey"   --nf "$od_black" \
+                          --hb "$od_black"  --hf "$od_grey"
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
+#xargs swaymsg exec -- 
 set $bmenu_opts -i --fn "pango:SourceCodePro Medium 10"
 
 set $menu_dmenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
 set $menu j4-dmenu-desktop --dmenu='$menu_dmenu' --term='$term' --wrapper='swaymsg exec'
 
-set $menu_newws_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $desktop_menu_colors
+set $menu_newws_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $newws_menu_colors
 set $menu_newws j4-dmenu-desktop --dmenu='$menu_newws_bemenu' --term='$term' --no-exec
 
 set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
-set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn -aPp %config%'"
+set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn -a %config%'"
 
 set $sys_menu ~/.config/sway/mods/system-menu.fish -p "sys" $bmenu_opts
 
-bindsym $mod+Escape exec $sys_menu
-
-#xargs swaymsg exec -- 
+bindsym $mod+shift+escape exec $sys_menu
+bindsym $mod+alt+m exec man -k . | bemenu -p "man" -l 30 $bmenu_opts $man_menu_colors | awk '{print $2 " " $1}' | sed 's/[()]//g' | xargs -rI%a  swaymsg exec -- exec $term -e "fish -c 'man  %a'"
 
 ### Output configuration
 output eDP-1 scale 1.5
 font pango: SourceCodePro Medium 11
 output "*" bg "$RANDBG" fill
+
+
+### Workspace ids
+set $workspace_term 0:
+set $workspace_tor 98:
+set $workspace_browser 99:
 
 ### Key bindings
 #
@@ -118,12 +134,8 @@ output "*" bg "$RANDBG" fill
     bindsym $mod+Shift+Right move right
 #
 # Workspaces:
-
-    set $workspace_term 
-    set $workspace_browser 99:
-
+#
     # Switch to workspace
-    bindsym $mod+grave workspace $workspace_term
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
@@ -134,10 +146,12 @@ output "*" bg "$RANDBG" fill
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
+    bindsym $mod+grave workspace number $workspace_term
     bindsym $mod+b workspace number $workspace_browser
+    bindsym $mod+alt+b workspace number $workspace_tor
 
     # Move focused container to workspace
-    bindsym $mod+Shift+grave move container to workspace $workspace_term, workspace $workspace_term
     bindsym $mod+Shift+1 move container to workspace number 1, workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2, workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3, workspace number 3
@@ -148,13 +162,16 @@ output "*" bg "$RANDBG" fill
     bindsym $mod+Shift+8 move container to workspace number 8, workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9, workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
+    
+    bindsym $mod+shift+grave move container to workspace $workspace_term, workspace $workspace_term
+    bindsym $mod+shift+b move container to workspace $workspace_browser, workspace $workspace_browser
+    bindsym $mod+shift+alt+b move container to workspace $workspace_tor, workspace $workspace_tor
     
     # Cycle workspace
     bindsym $mod+space workspace back_and_forth 
     bindsym $mod+Shift+space workspace next
-
+    bindsym $mod+Ctrl+Right workspace next
+    bindsym $mod+Ctrl+Left workspace prev
 #
 # Layout stuff:
 #
@@ -179,15 +196,13 @@ output "*" bg "$RANDBG" fill
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
 #
 # Resizing containers:
 #
@@ -213,9 +228,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
-
+### Window visuals
 default_border pixel 2
 
 #class                  │ border    │ background  │ text      │ indicator │ child_border
@@ -224,17 +237,38 @@ client.focused_inactive $od_grey00  $od_grey00    $od_black   $od_grey00
 client.unfocused        $od_grey00  $od_grey00    $od_black   $od_grey00
 
 gaps inner 6
-focus_follows_mouse no
 
+### Focus modifiers
+focus_follows_mouse no
 no_focus [app_id="nnn-preview"]
 
+### Floating apps
+for_window [app_id="float"] floating enable
+set $float_term alacritty -o background_opacity=1 --class "float"
+bindsym ctrl+escape exec $float_term -e gotop
+bindsym $mod+period exec $float_term -e nnn -aH
+bindsym $mod+shift+return exec $float_term
+
+### autospawn
+set $autospawn ~/.config/sway/mods/autospawn.sh
+exec $autospawn $workspace_browser exec chromium --new-window 
+exec $autospawn $workspace_tor exec tor-browser
+
+exec $autospawn trace 10 'exec $term -e fish -c "dvim ~/github.com/charleswillis3/rhesus"; exec chromium --new-window ~/drive/books/writing_an_interpreter_in_go_1.7/writing_an_interpreter_in_go_1.7.html'
+
+### random background
+set $nextbg exec fish -c "set-next-bg -s northern-lights"
+bindsym $mod+alt+escape exec $nextbg, output "*" bg "$RANDBG" fill
+
+
+input "type:keyboard" xkb_options caps:escape
 exec systemctl --user start gammastep
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always ~/.config/waybar/waybar.sh
-exec thunar --daemon
 exec autotiling
 workspace $workspace_term
-exec $term -e fish -C 'ssh-add ~/.ssh/id_inithost'
+exec $term -e fish -C "ssh-add ~/.ssh/id_inithost"
+exec $autospawn $workspace_term exec $term
 
 include ~/.config/sway/bindings.d/*
 include /etc/sway/config.d/*

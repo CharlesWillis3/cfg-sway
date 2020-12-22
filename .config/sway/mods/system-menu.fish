@@ -1,6 +1,5 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
  
-
 set -l menu lock suspend reboot shutdown exit uefi
 set -l cmd (string split " " $menu | bemenu -l (count $menu) $argv) 
 

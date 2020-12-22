@@ -38,7 +38,7 @@ window > box {
 #workspaces button {
     padding:    0 5px;
     color:      rgba(217, 216, 216, 0.4);
-    border-radius: 3;
+    border-radius: 3px;
 }
 
 #workspaces button.visible {
@@ -60,7 +60,7 @@ window > box {
   padding: 0 15px;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail {
+#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail, #custom-gammastep, #custom-expressvpn {
     margin:     0px 3px 0px 3px;
     min-width:  25px;
 }
@@ -72,16 +72,17 @@ window > box {
 
 #battery.warning {
    color:       rgba(255, 210, 4, 1);
-   border-radius: 5;
+   border-radius: 5px;
 }
 
 #battery.critical {
     color:      rgba(238, 46, 36, 1);
-    border-radius: 5;
+    border-radius: 5px;
 }
 
 #battery.charging {
     color:      rgba(217, 216, 216, 1);
+    border-radius: 5px;
 }
 
 #custom-storage.warning {
@@ -92,8 +93,9 @@ window > box {
     color:      rgba(238, 46, 36, 1);
 }
 
-#custom-gammastep {
-  margin-right: 2px;
+#custom-expressvpn.connected {
+    color:      rgba(152, 195, 121, 1);
+    border-radius: 5px;
 }
 
 #tray {

@@ -1,13 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-class=$(gammastep -p 2>&1 | grep -e 'Notice: Period:' | awk '{print $3}')
+class=$(gammastep -p 2>&1 | grep -e 'Notice: Period:' | awk '{print $3}' | tr '[:upper:]' '[:lower:]')
 
-if [[ $class == "Night" ]]; then
-  text=""
-elif [[ $class == "Daytime" ]]; then
-  text=""
-else text=""
-fi
-
-echo -e "{\"text\":\"" $text "\", \"class\":\""$class"\"}"
-
+printf '{"text":"%s", "class":"%s", "alt":"%s", "tooltip":"%s"}' "$class" "$class" "$class" "$class"

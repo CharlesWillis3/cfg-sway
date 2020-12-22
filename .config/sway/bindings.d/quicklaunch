@@ -1,5 +1,0 @@
-set $browser chromium
-
-bindsym $mod+Shift+b workspace number $workspace_browser, exec $browser
-bindsym $mod+n exec $term -e fish -c nvim
-bindsym $mod+d exec $term -e fish -c dvim
