@@ -3,7 +3,7 @@
 .config/chromium-flags.conf
 .config/fish/
 .config/gammastep/
-.config/gh/
+.config/gh/config.yml
 .config/nvim/
 .config/sway/
 .config/sway/bindings.d/
