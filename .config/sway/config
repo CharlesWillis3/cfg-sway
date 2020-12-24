@@ -65,9 +65,9 @@ set $menu_newws j4-dmenu-desktop --dmenu='$menu_newws_bemenu' --term='$term' --n
 set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
 set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn -a %config%'"
 
-set $sys_menu ~/.config/sway/mods/system-menu.fish -p "sys" $bmenu_opts
+set $sys_menu ~/.config/sway/mods/system-menu.fish bemenu /home/cewillis3/.config/randbg/curr -p sys $bmenu_opts
 
-bindsym $mod+shift+escape exec $sys_menu
+bindsym ctrl+alt+delete exec $sys_menu
 bindsym $mod+alt+m exec man -k . | bemenu -p "man" -l 30 $bmenu_opts $man_menu_colors | awk '{print $2 " " $1}' | sed 's/[()]//g' | xargs -rI%a  swaymsg exec -- exec $term -e "fish -c 'man  %a'"
 
 ### Output configuration
@@ -249,26 +249,25 @@ bindsym ctrl+escape exec $float_term -e gotop
 bindsym $mod+period exec $float_term -e nnn -aH
 bindsym $mod+shift+return exec $float_term
 
-### autospawn
-set $autospawn ~/.config/sway/mods/autospawn.sh
-exec $autospawn $workspace_browser exec chromium --new-window 
-exec $autospawn $workspace_tor exec tor-browser
-
-exec $autospawn trace 10 'exec $term -e fish -c "dvim ~/github.com/charleswillis3/rhesus"; exec chromium --new-window ~/drive/books/writing_an_interpreter_in_go_1.7/writing_an_interpreter_in_go_1.7.html'
-
 ### random background
 set $nextbg exec fish -c "set-next-bg -s northern-lights"
 bindsym $mod+alt+escape exec $nextbg, output "*" bg "$RANDBG" fill
 
-
 input "type:keyboard" xkb_options caps:escape
 exec systemctl --user start gammastep
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+for_window [app_id="xfce-polkit"] floating enable
+exec /usr/lib/xfce-polkit/xfce-polkit
 exec_always ~/.config/waybar/waybar.sh
 exec autotiling
 workspace $workspace_term
 exec $term -e fish -C "ssh-add ~/.ssh/id_inithost"
-exec $autospawn $workspace_term exec $term
+
+### autospawn
+set $autospawn ~/.config/sway/mods/autospawn.sh
+exec_always $autospawn $workspace_browser exec chromium --new-window --class=autospawn-chromium
+exec_always $autospawn $workspace_tor exec tor-browser
+exec_always $autospawn 10 'exec $term -e fish -c "dvim ~/github.com/charleswillis3/rhesus"; exec chromium --new-window ~/drive/books/writing_an_interpreter_in_go_1.7/writing_an_interpreter_in_go_1.7.html'
+exec_always $autospawn $workspace_term exec $term
 
 include ~/.config/sway/bindings.d/*
 include /etc/sway/config.d/*

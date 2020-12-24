@@ -45,6 +45,8 @@ colorscheme onedark
 "colorscheme slate
 "colorscheme torte
 
+" force redraw when vim had loaded for terminal in window manager compat
+autocmd vimenter * :silent exec "!kill -s SIGWINCH $PPID"
 " transparent bg
 autocmd vimenter * hi! Normal ctermbg=NONE guibg=NONE
 autocmd vimenter * hi! NonText ctermbg=NONE guibg=NONE

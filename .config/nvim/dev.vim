@@ -110,5 +110,3 @@ nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
 
 colorscheme gruvbox
-" force redraw when vim had loaded for terminal in window manager compat
-autocmd vimenter * :silent exec "!kill -s SIGWINCH $PPID"

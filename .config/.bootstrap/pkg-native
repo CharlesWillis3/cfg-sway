@@ -122,7 +122,6 @@ pciutils
 perl
 pkgconf
 playerctl
-polkit-gnome
 procps-ng
 psmisc
 pulseaudio
@@ -136,6 +135,7 @@ python-pipx
 python-pynvim
 qemu
 qt5-wayland
+qt5ct
 rclone
 reiserfsprogs
 rsync
@@ -143,6 +143,7 @@ rustup
 s-nail
 sed
 shadow
+shellcheck
 snapper
 spectre-meltdown-checker
 strace
@@ -155,6 +156,7 @@ systemd
 systemd-fsck-silent
 systemd-sysvcompat
 tar
+telegram-desktop
 texinfo
 tlp
 transmission-gtk
@@ -163,6 +165,7 @@ usbutils
 util-linux
 vi
 virt-manager
+vlc
 vulkan-intel
 vulkan-radeon
 waybar

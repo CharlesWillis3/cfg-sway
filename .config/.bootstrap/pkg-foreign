@@ -4,6 +4,7 @@ bat-cat-git
 expressvpn
 fisher
 fontpreview-git
+gotop-bin
 j4-dmenu-desktop
 light-git
 nerd-fonts-complete
@@ -12,6 +13,7 @@ nnn-nerd
 paman
 pmount-safe-removal
 powerbar
+powershell-bin
 shell-color-scripts
 snap-pac-grub
 snapper-gui-git
@@ -24,4 +26,5 @@ wev
 wl-clipboard-git
 wl-clipboard-x11
 wob-git
+xfce-polkit-git
 yadm-git
