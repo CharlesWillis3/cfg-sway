@@ -4,7 +4,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/spotify", "custom/expressvpn", "custom/gammastep", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/spotify", "custom/sway-scratch", "custom/expressvpn", "network", "custom/gammastep", "pulseaudio", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -24,7 +24,7 @@
         "format": "{icon}",
         "format-alt": "{time} {capacity}% {icon}",
         "format-alt-click": "click-right",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": ["", "", "", "", "", "", "", "", "", ""],
         "format-charging": "",
         "interval": 30,
         "states": {
@@ -39,7 +39,7 @@
         "format-alt-click": "click-right",
         "format-icons": {
             "wifi": ["", "" ,""],
-            "ethernet": [""],
+            "ethernet": [""],
             "disconnected": [""]
         },
         "on-click": "alacritty -e nmtui",
@@ -96,6 +96,22 @@
         "escape": true,
         "tooltip": true,
         "on-click": "expressvpn connect || expressvpn disconnect"
+    },
+    "custom/sway-scratch":{
+      "interval": 1,
+      "return-type": "json",
+      "format" : "{icon}",
+      "format-icons": {
+        "none": "",
+        "one": "",
+        "many": "",
+        "unknown": ""
+      },
+      "exec": "~/.config/waybar/modules/sway-scratch.sh",
+      "exec-if": "exit 0",
+      "on-click": "swaymsg scratchpad show",
+      "on-click-right": "swaymsg move window to scratchpad",
+      "tooltip": false
     },
     "idle_inhibitor": {
         "format": "{icon}",

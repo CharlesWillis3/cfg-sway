@@ -1,6 +1,6 @@
 .config/.bootstrap/
 .config/alacritty/
-.config/chromium-flags.conf
+.config/brave-flags.conf
 .config/fish/
 .config/gammastep/
 .config/gh/config.yml

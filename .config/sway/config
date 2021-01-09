@@ -1,6 +1,3 @@
-# Default config for sway
-
-# Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
 
@@ -9,10 +6,17 @@ set $mod Mod4
 
 # Your preferred terminal emulator
 set $term alacritty
-set $fish_exec exec /usr/bin/fish
-set $workspace_new swaymsg -t get_workspaces -r | jq '[.[].num] | map(select(. < 99)) | [max + 1, 1] | max' | xargs swaymsg workspace number && swaymsg exec -- 
+
+# Helpers
+set $swaymods ~/.config/sway/mods
+set $trace_bash $swaymods/tracelog.sh # 68 ~/swaysh --
 
 include ~/.config/sway/config.d/*
+
+### Output configuration
+output eDP-1 scale 1.5
+font pango: SourceCodePro Medium 11
+output "*" bg "$RANDBG" fill
 
 # Home row direction keys, like vim
 set $left h
@@ -40,63 +44,61 @@ set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
                           --nb "$od_blue"   --nf "$od_black" \
                           --hb "$od_green"  --hf "$od_black"
 
-set $newws_menu_colors    --tb "$od_yellow" --tf "$od_black" \
+set $autows_menu_colors   --tb "$od_yellow" --tf "$od_black" \
                           --fb "$od_black"  --ff "$od_yellow" \
                           --nb "$od_black"  --nf "$od_yellow" \
                           --hb "$od_yellow" --hf "$od_black"
 
-set $man_menu_color       --tb "$od_black"  --tf "$od_grey" \
+set $man_menu_colors      --tb "$od_black"  --tf "$od_grey" \
                           --fb "$od_grey"   --ff "$od_black" \
                           --nb "$od_grey"   --nf "$od_black" \
                           --hb "$od_black"  --hf "$od_grey"
 
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-#xargs swaymsg exec -- 
+# Launchers
 set $bmenu_opts -i --fn "pango:SourceCodePro Medium 10"
 
-set $menu_dmenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
-set $menu j4-dmenu-desktop --dmenu='$menu_dmenu' --term='$term' --wrapper='swaymsg exec'
+set $desktop_bemenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
+set $menu_desktop j4-dmenu-desktop --dmenu='$desktop_bemenu' --term='$term' --wrapper='swaymsg exec'
 
-set $menu_newws_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $newws_menu_colors
-set $menu_newws j4-dmenu-desktop --dmenu='$menu_newws_bemenu' --term='$term' --no-exec
+set $autows_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $autows_menu_colors
+set $autows_exec $swaymods/autows.sh 1 90
+set $menu_autows j4-dmenu-desktop --dmenu='$autows_bemenu' --term='$term' --no-exec | $autows_exec
 
-set $config_menu ls -A ~/.config | bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
-set $config_edit sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'nn -a %config%'"
+set $config_bemenu bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
+set $config_exec sed 's/^/~\/.config\//' | xargs -r -I %config% swaymsg exec -- "$term -t '  %config%' -e fish -c 'n %config%'"
+set $menu_config ls -A ~/.config | $config_bemenu | $config_exec
 
-set $sys_menu ~/.config/sway/mods/system-menu.fish bemenu /home/cewillis3/.config/randbg/curr -p sys $bmenu_opts
+set $sys_bemenu bemenu /home/cewillis3/.config/randbg/curr -p sys $bmenu_opts
+set $menu_sys $swaymods/system-menu.fish $sys_bemenu
 
-bindsym ctrl+alt+delete exec $sys_menu
-bindsym $mod+alt+m exec man -k . | bemenu -p "man" -l 30 $bmenu_opts $man_menu_colors | awk '{print $2 " " $1}' | sed 's/[()]//g' | xargs -rI%a  swaymsg exec -- exec $term -e "fish -c 'man  %a'"
-
-### Output configuration
-output eDP-1 scale 1.5
-font pango: SourceCodePro Medium 11
-output "*" bg "$RANDBG" fill
-
+set $man_bemenu bemenu -p man -l 30 $bemenu_opts $man_menu_colors
+set $man_exec awk '{print $2 " " $1}' | sed 's/[()]//g' | xargs -rI%a  swaymsg exec -- exec $term -e "fish -c 'man  %a'"
+set $menu_man exec man -k . | $man_bemenu | $man_exec
 
 ### Workspace ids
 set $workspace_term 0:
+set $workspace_dev 97:
 set $workspace_tor 98:
-set $workspace_browser 99:
+set $workspace_browser 99:
 
 ### Key bindings
 #
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
-    bindsym $mod+Ctrl+Return exec $workspace_new $term
+    bindsym $mod+return exec $term
+    bindsym $mod+ctrl+return exec $swaymods/autows.sh 1 90 -- $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
     bindsym $mod+q kill
+    bindsym $mod+shift+q [workspace="__focused__"] kill; workspace prev
 
-    # Start your launcher
-    bindsym $mod+slash exec $menu
-    bindsym $mod+ctrl+slash exec $menu_newws | ~/.config/sway/mods/exec-newws.fish
-    bindsym $mod+shift+slash exec $config_menu | $config_edit
+    # Start your launchers
+    bindsym $mod+slash exec $menu_desktop
+    bindsym $mod+ctrl+slash exec $menu_autows
+    bindsym $mod+shift+slash exec $menu_config
+    bindsym $mod+alt+m exec $menu_man
+    bindsym ctrl+alt+delete exec $menu_sys
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -106,8 +108,7 @@ set $workspace_browser 99:
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
-
+    bindsym $mod+shift+c reload
 #
 # Moving around:
 #
@@ -148,8 +149,9 @@ set $workspace_browser 99:
     bindsym $mod+0 workspace number 10
 
     bindsym $mod+grave workspace number $workspace_term
-    bindsym $mod+b workspace number $workspace_browser
+    bindsym $mod+d workspace number $workspace_dev
     bindsym $mod+alt+b workspace number $workspace_tor
+    bindsym $mod+b workspace number $workspace_browser
 
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1, workspace number 1
@@ -164,6 +166,7 @@ set $workspace_browser 99:
     bindsym $mod+Shift+0 move container to workspace number 10
     
     bindsym $mod+shift+grave move container to workspace $workspace_term, workspace $workspace_term
+    bindsym $mod+shift+d move container to workspace $workspace_dev, workspace $workspace_dev
     bindsym $mod+shift+b move container to workspace $workspace_browser, workspace $workspace_browser
     bindsym $mod+shift+alt+b move container to workspace $workspace_tor, workspace $workspace_tor
     
@@ -222,6 +225,18 @@ mode "resize" {
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
+    bindsym 3 resize set width 30ppt
+    bindsym 4 resize set width 40ppt
+    bindsym 5 resize set width 50ppt
+    bindsym 6 resize set width 60ppt
+    bindsym 7 resize set width 70ppt
+
+    bindsym shift+3 resize set height 30ppt
+    bindsym shift+4 resize set height 40ppt
+    bindsym shift+5 resize set height 50ppt
+    bindsym shift+6 resize set height 60ppt
+    bindsym shift+7 resize set height 70ppt
+
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -230,6 +245,7 @@ bindsym $mod+r mode "resize"
 
 ### Window visuals
 default_border pixel 2
+default_floating_border pixel 2
 
 #class                  │ border    │ background  │ text      │ indicator │ child_border
 client.focused          $od_cyan88  $od_cyan88    $od_grey    $od_cyan
@@ -238,36 +254,44 @@ client.unfocused        $od_grey00  $od_grey00    $od_black   $od_grey00
 
 gaps inner 6
 
-### Focus modifiers
+### focus modifiers
 focus_follows_mouse no
 no_focus [app_id="nnn-preview"]
 
-### Floating apps
+### floating apps
 for_window [app_id="float"] floating enable
+for_window [app_id="vimb"] floating enable
+for_window [app_id="vimb"] resize set 60ppt 60ppt
+for_window [app_id="zenity" title="[Pp]rogress"] floating enable
+for_window [title="galculator"] floating enable
+for_window [app_id="xfce-polkit"] floating enable
+
 set $float_term alacritty -o background_opacity=1 --class "float"
 bindsym ctrl+escape exec $float_term -e gotop
-bindsym $mod+period exec $float_term -e nnn -aH
-bindsym $mod+shift+return exec $float_term
+bindsym alt+ctrl+period exec $float_term -e fish -c n
+bindsym alt+ctrl+return exec $float_term
+bindsym alt+ctrl+b exec vimb
 
 ### random background
 set $nextbg exec fish -c "set-next-bg -s northern-lights"
 bindsym $mod+alt+escape exec $nextbg, output "*" bg "$RANDBG" fill
 
+### input mods
 input "type:keyboard" xkb_options caps:escape
-exec systemctl --user start gammastep
-for_window [app_id="xfce-polkit"] floating enable
-exec /usr/lib/xfce-polkit/xfce-polkit
-exec_always ~/.config/waybar/waybar.sh
-exec autotiling
-workspace $workspace_term
-exec $term -e fish -C "ssh-add ~/.ssh/id_inithost"
 
 ### autospawn
-set $autospawn ~/.config/sway/mods/autospawn.sh
-exec_always $autospawn $workspace_browser exec chromium --new-window --class=autospawn-chromium
+set $autospawn $swaymods/autospawn.sh
+exec_always $autospawn $workspace_browser exec fish -c '"brave --new-window --class=autospawn-browser"'
 exec_always $autospawn $workspace_tor exec tor-browser
-exec_always $autospawn 10 'exec $term -e fish -c "dvim ~/github.com/charleswillis3/rhesus"; exec chromium --new-window ~/drive/books/writing_an_interpreter_in_go_1.7/writing_an_interpreter_in_go_1.7.html'
 exec_always $autospawn $workspace_term exec $term
+
+exec_always ~/.config/waybar/waybar.sh
+exec systemctl --user start gammastep
+exec /usr/lib/xfce-polkit/xfce-polkit
+exec autotiling
+
+workspace $workspace_term
+exec $term -e fish -C "ssh-add ~/.ssh/id_inithost"
 
 include ~/.config/sway/bindings.d/*
 include /etc/sway/config.d/*

@@ -16,7 +16,7 @@
 #   event is sent. in sway config, usually you should use
 #   exec_always.
 
-# usage: ./autospawn.sh [trace] <workspace_name> <msg>
+# usage: ./autospawn.sh <workspace_name> <msg>
 
 # sway config example:
 #   set $autospawn ~/path/to/autospawn.sh
@@ -33,37 +33,14 @@
 # passed the right way:
 #   exec_always $autospawn config exec alacritty -e fish -c '"vim ~/.config/fish/config.fish"'
 #
-# enable trace logging to see how bash is expanding commands:
-#   exec_always $autospawn trace $workspace_term exec $term
-#
-# tracing appends to the log, which can be found at
-#   ~/autospawn_<workspace_name>_<message_tag>.trace
-# trace logging should be turned off when no longer needed
-#
 
-#####################
-# setup trace logging
-#   this section can be safely removed
-#
-XFD=57 # file descriptor to use for the log file
-if [ $1 = "trace" ]; then
-  shift
-  eval "exec $XFD>>~/autospawn_$1_$(md5sum<<<$* | cut -c 1-8).trace"
-  BASH_XTRACEFD=$XFD
-  exec 1>&$BASH_XTRACEFD 2>&$BASH_XTRACEFD
-  echo
-  echo =====$(date)=====
-  echo $@
-  set -x
-fi
-#
-#
-#####################
+dirself=$(dirname $0)
 
 # get arguments
 ws=$1 && shift
-select='.change=="init" and .current?.name=='"$ws"
 
-sdir=$(dirname $(readlink -f $0))
+select='.change=="init" and .current?.name=="'"$ws"'"'
 
-. $sdir/automsg.sh workspace '.change=="init" and .current?.name=="'"$ws"'"' -- "$@"
+while read -r wsinit; do
+  [ "$wsinit" = "match" ] && swaymsg -- "$@"
+done < <(${dirself}/selectevt.sh % "$select")

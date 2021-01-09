@@ -1,3 +1,15 @@
+
+/*
+ * black:   rgb(40, 44, 52)
+ * red:     rgb(224, 108, 117)
+ * green:   rgb(152, 195, 121)
+ * yellow:  rgb(229, 192, 123)
+ * blue:    rgb(97, 175, 239)
+ * magenta: rgb(198, 120, 221)
+ * cyan:    rgb(86, 182, 194)
+ * gray:    rgb(171, 178, 191)
+ */
+
 * {
     border:        none;
     border-radius: 0;
@@ -8,23 +20,12 @@
     transition-duration: 0s;
 }
 
-/* window {
-    color:      rgba(217, 216, 216, 1);
-    background: rgba(35, 31, 32, 0.00);
-}
-
-window#waybar.solo {
-    color:      rgba(217, 216, 216, 1);
-    background: rgba(35, 31, 32, 0.85);
-} */
-
-
 window {
     background: transparent;
 }
 
 window > box {
-    margin: 0px 0px 0 0px;
+    margin: 0px 0px 0px 0px;
     background: rgba(40, 44, 52, 0.6);
     border-bottom: 0px solid rgba(100, 114, 125, 0.5);
     border-radius: 0;
@@ -36,8 +37,8 @@ window > box {
 }
 
 #workspaces button {
-    padding:    0 5px;
-    color:      rgba(217, 216, 216, 0.4);
+    padding:       0px 5px;
+    color:         rgba(217, 216, 216, 0.4);
     border-radius: 3px;
 }
 
@@ -46,9 +47,9 @@ window > box {
 }
 
 #workspaces button.focused {
-    border-top: 0px solid rgba(217, 216, 216, 0);
+    border-top:    0px solid rgba(217, 216, 216, 0);
     border-bottom: 2px solid rgba(217, 216, 216, 1);
-    border-radius: 0;
+    border-radius: 3px;
 }
 
 #workspaces button.urgent {
@@ -57,31 +58,30 @@ window > box {
 
 #window {
   border-bottom: 1px solid rgba(67, 70, 75, 1.0);
-  padding: 0 15px;
+  padding:       0px 15px;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail, #custom-gammastep, #custom-expressvpn {
+#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail, #custom-gammastep, #custom-expressvpn, #custom-sway-scratch {
     margin:     0px 3px 0px 3px;
     min-width:  25px;
 }
 
 #clock {
-    margin:     0px 6px 0px 6px;
+    margin:     0px 4px 0px 4px;
     min-width:  140px;
 }
 
 #battery.warning {
-   color:       rgba(255, 210, 4, 1);
-   border-radius: 5px;
+   color:       rgba(229, 192, 123, 1);
 }
 
 #battery.critical {
-    color:      rgba(238, 46, 36, 1);
+    color:      rgba(224, 108, 117, 1);
     border-radius: 5px;
 }
 
 #battery.charging {
-    color:      rgba(217, 216, 216, 1);
+    color:      rgba(152, 195, 121, 1); 
     border-radius: 5px;
 }
 
@@ -96,6 +96,34 @@ window > box {
 #custom-expressvpn.connected {
     color:      rgba(152, 195, 121, 1);
     border-radius: 5px;
+}
+
+#custom-gammastep.night {
+    color: rgba(97, 175, 239, 1);
+}
+
+#custom-gammastep.daytime {
+    color: rgba(152, 195, 121, 1);
+}
+
+#custom-gammastep.transition {
+    color: rgba(152, 195, 121, 1);
+}
+
+#custom-sway-scratch.many {
+    color: rgba(86, 182, 194, 1);
+}
+
+#custom-sway-scratch.one {
+    color: rgba(97, 175, 239, 1);
+}
+
+#network.wifi {
+    color: rgba(86, 182, 194, 1);
+}
+
+#network.ethernet {
+    color: rgba(86, 182, 194, 1);
 }
 
 #tray {
