@@ -13,8 +13,7 @@
 .config/waybar/
 .config/waybar/modules/
 .config/yadm/bootstrap
-.config/yadm/encrypt
-.config/yadm/files.gpg
+.local/share/yadm/archive
 .config/yadm/pathspec
 .gitconfig
 .local/share/wallpapers/

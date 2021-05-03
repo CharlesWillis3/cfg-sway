@@ -1,4 +1,4 @@
-set $mode_window  [+/-/=] opacity / [f]loat / [b]order
+set $mode_window  [+/-/=] opacity / [f]loat / [b]order / [s]ticky
 mode "$mode_window" {
   bindsym {
     Plus opacity plus .1
@@ -17,6 +17,7 @@ mode "$mode_window" {
 
     f floating toggle
     b border toggle
+    s sticky toggle
 
     Return mode "default"
     Escape mode "default"

@@ -16,9 +16,10 @@ set -xg NNN_OPENER $HOME/.config/nnn/plugins/nuke
 set -xg NNN_OPTS acdHnUx
 set -xg GUI 1
 
+gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+      thunar --daemon &
       set-next-bg -s northern-lights
-      gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false
     end
 end

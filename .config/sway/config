@@ -1,3 +1,4 @@
+exec_always swagerd -log=debug &>> $HOME/swagerd.log
 #
 # Read `man 5 sway` for a complete reference.
 
@@ -18,6 +19,21 @@ output eDP-1 scale 1.5
 font pango: SourceCodePro Medium 11
 output "*" bg "$RANDBG" fill
 
+### Workspace ids
+set $workspace_term 0:
+set $workspace_dev 97:
+set $workspace_tor 98:
+set $workspace_browser 99:
+
+exec_always swagerctl --init t tiler \
+                      --init e execnew 1 90 \
+                      --init i initspawn --log i debug \
+                      --init s swaymon \
+                      --send i $workspace_browser "exec brave --new-window --class=autospawn-browser" \
+                      --send i $workspace_tor "exec tor-browser" \
+                      --send i $workspace_term "exec $term" \
+                      --config commit &>> $HOME/swagerctl.log
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -35,12 +51,12 @@ set $od_cyan #56b6c2
 set $od_grey #abb2bf
 
 set $desktop_menu_colors  --tb "$od_black"  --tf "$od_green" \
-                          --fb "$od_black"  --ff "$od_cyan" \
-                          --nb "$od_black"  --nf "$od_blue" \
-                          --hb "$od_cyan"   --hf "$od_black"
+                        --fb "$od_black"  --ff "$od_cyan" \
+                        --nb "$od_black"  --nf "$od_blue" \
+                        --hb "$od_cyan"   --hf "$od_black"
 
 set $config_menu_colors   --tb "$od_blue"   --tf "$od_black" \
-                          --fb "$od_blue"   --ff "$od_black" \
+                        --fb "$od_blue"   --ff "$od_black" \
                           --nb "$od_blue"   --nf "$od_black" \
                           --hb "$od_green"  --hf "$od_black"
 
@@ -61,7 +77,8 @@ set $desktop_bemenu bemenu -p "exec" -l 5 $bmenu_opts $desktop_menu_colors
 set $menu_desktop j4-dmenu-desktop --dmenu='$desktop_bemenu' --term='$term' --wrapper='swaymsg exec'
 
 set $autows_bemenu bemenu -p "exec ws" -l 5 $bmenu_opts $autows_menu_colors
-set $autows_exec $swaymods/autows.sh 1 90
+#set $autows_exec $swaymods/autows.sh 1 90
+set $autows_exec xargs -r -I %cmd% swagerctl --send e "exec %cmd%"
 set $menu_autows j4-dmenu-desktop --dmenu='$autows_bemenu' --term='$term' --no-exec | $autows_exec
 
 set $config_bemenu bemenu -p ".config" -l 5 $bmenu_opts $config_menu_colors
@@ -75,11 +92,6 @@ set $man_bemenu bemenu -p man -l 30 $bemenu_opts $man_menu_colors
 set $man_exec awk '{print $2 " " $1}' | sed 's/[()]//g' | xargs -rI%a  swaymsg exec -- exec $term -e "fish -c 'man  %a'"
 set $menu_man exec man -k . | $man_bemenu | $man_exec
 
-### Workspace ids
-set $workspace_term 0:
-set $workspace_dev 97:
-set $workspace_tor 98:
-set $workspace_browser 99:
 
 ### Key bindings
 #
@@ -264,6 +276,8 @@ for_window [app_id="vimb"] floating enable
 for_window [app_id="vimb"] resize set 60ppt 60ppt
 for_window [app_id="zenity" title="[Pp]rogress"] floating enable
 for_window [title="galculator"] floating enable
+for_window [title="Save File"] floating enable
+for_window [title="Open File"] floating enable
 for_window [app_id="xfce-polkit"] floating enable
 
 set $float_term alacritty -o background_opacity=1 --class "float"
@@ -279,16 +293,10 @@ bindsym $mod+alt+escape exec $nextbg, output "*" bg "$RANDBG" fill
 ### input mods
 input "type:keyboard" xkb_options caps:escape
 
-### autospawn
-set $autospawn $swaymods/autospawn.sh
-exec_always $autospawn $workspace_browser exec fish -c '"brave --new-window --class=autospawn-browser"'
-exec_always $autospawn $workspace_tor exec tor-browser
-exec_always $autospawn $workspace_term exec $term
-
 exec_always ~/.config/waybar/waybar.sh
 exec systemctl --user start gammastep
 exec /usr/lib/xfce-polkit/xfce-polkit
-exec autotiling
+#exec autotiling
 
 workspace $workspace_term
 exec $term -e fish -C "ssh-add ~/.ssh/id_inithost"

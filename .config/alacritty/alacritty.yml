@@ -8,8 +8,7 @@
 import:
   - /home/cewillis3/.config/alacritty/bindings.yml
   - /home/cewillis3/.config/alacritty/colors.yml
-
-#env:
+  #env:
   #TERM: alacritty
 
 window:
@@ -23,28 +22,23 @@ window:
 
   # Window title
   #title: Alacritty
-
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
-
   # Window class (Linux/BSD only):
   #class:
-    # Application instance name
-    #instance: Alacritty
-    # General application class
-    #general: Alacritty
-
+  # Application instance name
+  #instance: Alacritty
+  # General application class
+  #general: Alacritty
   # GTK theme variant (Linux/BSD only)
   #
   # Override the variant of the GTK theme. Commonly supported values are `dark`
   # and `light`. Set this to `None` to use the default theme variant.
   #gtk_theme_variant: None
-
-#scrolling:
+  #scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
   #history: 10000
-
   # Scrolling distance multiplier.
   #multiplier: 3
 
@@ -53,39 +47,32 @@ font:
   normal:
     family: FiraCode Nerd Font Mono
     #style: Regular
-
     #bold:
     #family: monospace
     #style: Bold
-
     #italic:
     #family: monospace
     #style: Light
-
     #bold_italic:
     #family: monospace
     #style: Medium
 
   # Point size
   size: 12.0
-
   #offset:
   #  x: 0
   #  y: 0
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
-
 background_opacity: 0.8
 
 #selection:
-  # This string contains all characters that are used as separators for
-  # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
-
+# This string contains all characters that are used as separators for
+# "semantic words" in Alacritty.
+#semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+# When set to `true`, selected text will be copied to the primary clipboard.
+#save_to_clipboard: false
 cursor:
   # Cursor style
   #
@@ -96,46 +83,38 @@ cursor:
   style: Underline
   vi_mode_style: Block
   unfocused_hollow: true
-
-# Live config reload (changes require restart)
-#live_config_reload: true
-#working_directory: None
-
-# Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
-
-#mouse:
-    #url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a
-    # URL. The URL is always added to the command as the last parameter.
-    #
-    # When set to `launcher: None`, URL launching will be disabled completely.
-    #
-    # Default:
-    #   - (macOS) open
-    #   - (Linux/BSD) xdg-open
-    #   - (Windows) explorer
-    #launcher:
-    #  program: xdg-open
-    #  args: []
-
-    # URL modifiers
-    #
-    # These are the modifiers that need to be held down for opening URLs when
-    # clicking on them. The available modifiers are documented in the key
-    # binding section.
-    #modifiers: None
-
-
-#debug:
+  # Live config reload (changes require restart)
+  #live_config_reload: true
+  #working_directory: None
+  # Send ESC (\x1b) before characters when alt is pressed.
+  #alt_send_esc: true
+  #mouse:
+  #url:
+  # URL launcher
+  #
+  # This program is executed when clicking on a text which is recognized as a
+  # URL. The URL is always added to the command as the last parameter.
+  #
+  # When set to `launcher: None`, URL launching will be disabled completely.
+  #
+  # Default:
+  #   - (macOS) open
+  #   - (Linux/BSD) xdg-open
+  #   - (Windows) explorer
+  #launcher:
+  #  program: xdg-open
+  #  args: []
+  # URL modifiers
+  #
+  # These are the modifiers that need to be held down for opening URLs when
+  # clicking on them. The available modifiers are documented in the key
+  # binding section.
+  #modifiers: None
+  #debug:
   # Display the time it takes to redraw each frame.
   #render_timer: false
-
   # Keep the log file after quitting Alacritty.
   #persistent_logging: false
-
   # Log level
   #
   # Values for `log_level`:
@@ -146,6 +125,32 @@ cursor:
   #   - Debug
   #   - Trace
   #log_level: Warn
-
   # Print all received window events.
   #print_events: false
+colors:
+  # Default colors
+  primary:
+    background: '#10100E'
+    foreground: '#C6C6C4'
+
+  # Normal colors
+  normal:
+    black: '#10100E'
+    red: '#C40233'
+    green: '#009F6B'
+    yellow: '#FFD700'
+    blue: '#0087BD'
+    magenta: '#9A4EAE'
+    cyan: '#20B2AA'
+    white: '#C6C6C4'
+
+  # Bright colors
+  bright:
+    black: '#696969'
+    red: '#FF2400'
+    green: '#03C03C'
+    yellow: '#FDFF00'
+    blue: '#007FFF'
+    magenta: '#FF1493'
+    cyan: '#00CCCC'
+    white: '#FFFAFA'

@@ -14,3 +14,6 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $SWA
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+input touchpad tap_button_map lrm
+input touchpad middle_emulation disabled

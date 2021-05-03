@@ -8,3 +8,5 @@
 [user]
 	email = 5862883+CharlesWillis3@users.noreply.github.com
 	name = Charles Willis
+[init]
+	defaultBranch = main

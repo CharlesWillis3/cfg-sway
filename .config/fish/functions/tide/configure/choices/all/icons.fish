@@ -1,5 +1,5 @@
 function icons
-    _tide_title 'Icons'
+    _tide_title Icons
 
     _tide_option 1 'Few icons'
     _tide_display_prompt
@@ -8,19 +8,12 @@ function icons
     _enable_icons
     _tide_display_prompt
 
-    _tide_display_restart_and_tide_quit
-
-    switch (_tide_menu)
+    _tide_menu
+    switch $_tide_selected_option
         case 1
             _disable_icons
-            _next_choice 'all/finish'
-        case 2
-            _next_choice 'all/finish'
-        case r
-            _tide_begin
-        case q
-            _tide_quit
     end
+    _next_choice all/finish
 end
 
 function _enable_icons
@@ -31,7 +24,7 @@ function _enable_icons
 end
 
 function _disable_icons
-    _find_and_remove os fake_tide_left_prompt_items
+    _tide_find_and_remove os fake_tide_left_prompt_items
     set fake_tide_pwd_dir_icon
     set fake_tide_pwd_home_icon
     set fake_tide_cmd_duration_icon

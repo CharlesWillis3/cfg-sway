@@ -22,13 +22,12 @@ Plug 'preservim/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+"Plug 'airblade/vim-gitgutter'
+"Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
 Plug 'psliwka/vim-smoothie'
 Plug 'mhinz/vim-startify'
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+"Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -47,8 +46,9 @@ let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#show_close_button = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#buffer_idx_format = {
-        \ '0': '✪ ',
+        \ '0': '+',
         \ '1': '➊ ',
         \ '2': '➋ ',
         \ '3': '➌ ',
@@ -91,6 +91,8 @@ nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 nmap <Leader>- <Plug>AirlineSelectPrevTab
 nmap <Leader>+ <Plug>AirlineSelectNextTab
+
+let g:AutoPairs = {'(':')', '[':']', '{':'}'}
 
 " coc mappings
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
